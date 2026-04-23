@@ -42,7 +42,7 @@ st.markdown('<div class="card">', unsafe_allow_html=True)
 st.markdown("<p style='text-align:center;'>Presiona el botón y comienza a hablar</p>", unsafe_allow_html=True)
 
 # Botón
-stt_button = Button(label="🎤 Iniciar Grabación", width=200)
+stt_button = Button(label="🎤 Iniciar Grabación", width=200, button_type="success")
 
 stt_button.js_on_event("button_click", CustomJS(code="""
     var recognition = new webkitSpeechRecognition();
