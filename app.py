@@ -28,7 +28,7 @@ client1= paho.Client("voiceC-AngRP10")
 client1.on_message = on_message
 
 # ------------------ UI ------------------
-st.markdown("<h1 style='color:#FF5733; text-align:cente; '>🎙️ INTERFACES MULTIMODALES</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='color:#8e44ad; text-align:cente; '>🎙️ INTERFACES MULTIMODALES</h1>", unsafe_allow_html=True)
 st.markdown("<h3>Control por Voz Inteligente</h3>", unsafe_allow_html=True)
 
 # Imagen centrada
