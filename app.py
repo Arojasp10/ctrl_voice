@@ -11,74 +11,40 @@ import json
 from gtts import gTTS
 from googletrans import Translator
 
-def on_publish(client,userdata,result):             #create function for callback
-    print("el dato ha sido publicado \n")
-    pass
+# ------------------ ESTILOS ------------------
+st.markdown("""
+<style>
+body {
+    background-color: #f5f7fb;
+}
 
-def on_message(client, userdata, message):
-    global message_received
-    time.sleep(2)
-    message_received=str(message.payload.decode("utf-8"))
-    st.write(message_received)
+.main {
+    background-color: #f5f7fb;
+}
 
-broker="broker.mqttdashboard.com"
-port=1883
-client1= paho.Client("voiceC-AngRP10")
-client1.on_message = on_message
+h1 {
+    color: #2c3e50;
+    text-align: center;
+}
 
+h3 {
+    text-align: center;
+    color: #7f8c8d;
+}
 
+.center {
+    display: flex;
+    justify-content: center;
+}
 
-st.title("INTERFACES MULTIMODALES")
-st.subheader("CONTROL POR VOZ")
+.stButton>button {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 12px;
+    height: 3em;
+    width: 200px;
+    font-size: 16px;
+    border: none;
+}
 
-image = Image.open('voice_ctrl.jpg')
-
-st.image(image, width=200)
-
-
-
-
-st.write("Toca el Botón y habla ")
-
-stt_button = Button(label=" Inicio ", width=200)
-
-stt_button.js_on_event("button_click", CustomJS(code="""
-    var recognition = new webkitSpeechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
- 
-    recognition.onresult = function (e) {
-        var value = "";
-        for (var i = e.resultIndex; i < e.results.length; ++i) {
-            if (e.results[i].isFinal) {
-                value += e.results[i][0].transcript;
-            }
-        }
-        if ( value != "") {
-            document.dispatchEvent(new CustomEvent("GET_TEXT", {detail: value}));
-        }
-    }
-    recognition.start();
-    """))
-
-result = streamlit_bokeh_events(
-    stt_button,
-    events="GET_TEXT",
-    key="listen",
-    refresh_on_update=False,
-    override_height=75,
-    debounce_time=0)
-
-if result:
-    if "GET_TEXT" in result:
-        st.write(result.get("GET_TEXT"))
-        client1.on_publish = on_publish                            
-        client1.connect(broker,port)  
-        message =json.dumps({"Act1":result.get("GET_TEXT").strip()})
-        ret= client1.publish("voice_ctrl-arp1007", message)
-
-    
-    try:
-        os.mkdir("temp")
-    except:
-        pass
+.st
